@@ -41,7 +41,12 @@ masks paths under your home directory.
 <tool>/install.sh     macOS / Linux installer
 <tool>/install.ps1    Windows installer
 <tool>/README.md      tool guide
+<tool>/LICENSE.md     tool license
 ```
 
 Releases are tagged `<tool>-vX.Y.Z` (for example `celestory-v0.0.1`), so each
 tool's installer only ever picks its own releases.
+
+## License
+
+© 2026 DB Astro Suite. Free to use, not open source: see [LICENSE.md](LICENSE.md).

@@ -275,3 +275,14 @@ never carries your username or home folder layout. Paths *outside* your home
 (e.g. `/Volumes/T7/...`) appear as-is, so glance over a report before attaching it
 if that matters to you. Nothing is ever uploaded; the log and both report files
 stay on your machine unless you share them.
+
+## License
+
+Celestory is free to use, personally or commercially, and everything it
+produces from your data (`celestory.json`, reports, share cards) is yours to use
+however you like, with no credit needed. The software itself is proprietary:
+© 2026 DB Astro Suite, all rights reserved. Don't redistribute, re-host or
+modify it without permission. Read the full
+[license](https://github.com/sidthesloth92/dbastrosuite-releases/blob/main/celestory/LICENSE.md)
+and the web app's [Terms of Use](https://celestory.dbastrosuite.com/terms).
+Third-party notices ship with every download in `THIRD_PARTY_NOTICES.txt`.
