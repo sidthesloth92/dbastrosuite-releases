@@ -53,8 +53,17 @@ Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $tm
 # Verify the SHA-256 against the published checksums.txt before extracting.
 $sumsAsset = $release.assets | Where-Object { $_.name -eq 'checksums.txt' } | Select-Object -First 1
 if ($sumsAsset) {
-    $sums = (Invoke-WebRequest -UseBasicParsing -Uri $sumsAsset.browser_download_url -Headers $Headers).Content
+    # Save to a file: GitHub serves release assets as application/octet-stream,
+    # so .Content would be a byte array rather than text.
+    $sumsTmp = "$tmp.sha256"
+    Invoke-WebRequest -UseBasicParsing -Uri $sumsAsset.browser_download_url -OutFile $sumsTmp -Headers $Headers
+    $sums = Get-Content -Raw -Path $sumsTmp
+    Remove-Item $sumsTmp -Force
     $line = $sums -split "`n" | Where-Object { $_ -match [regex]::Escape($assetName) } | Select-Object -First 1
+    if (-not $line) {
+        Remove-Item $tmp -Force
+        throw "checksums.txt has no entry for $assetName."
+    }
     $expected = (($line -split '\s+') | Where-Object { $_ })[0]
     $actual = (Get-FileHash -Algorithm SHA256 -Path $tmp).Hash
     if ($expected -and ($actual -ne $expected.Trim())) {
